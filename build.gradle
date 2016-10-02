@@ -1,0 +1,53 @@
+group 'NeoLab'
+version '1.0-SNAPSHOT'
+
+var kotlin_version = '1.0.4'
+
+
+
+task wrapper(type: Wrapper) {
+//  gradleVersion = '2.13'
+  gradleVersion = '3.1'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+buildscript {
+//    ext.kotlin_version = '1.0.4'
+
+    repositories {
+//        mavenCentral()
+        maven{
+            url "http://localhost:8081/repository/maven-central"
+        }
+        maven{
+            url "http://localhost:8081/repository/repo.spring.io-libs-milestone"
+        }
+    }
+
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+//sourceCompatibility = 1.8
+
+repositories {
+//    mavenCentral()
+
+    maven{
+        url "http://localhost:8081/repository/maven-central"
+    }
+    maven{
+        url "http://localhost:8081/repository/repo.spring.io-libs-milestone"
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'junit:junit:+'
+//    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
