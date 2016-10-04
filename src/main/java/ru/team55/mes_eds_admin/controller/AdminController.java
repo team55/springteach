@@ -28,7 +28,7 @@ public class AdminController {
         return service.getByID(id);
     }
 
-    @RequestMapping(value = "/maintenances/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/maintenances", method = RequestMethod.POST)
     @ResponseBody
     public Maintenance postMaintenance(@RequestBody Maintenance maintenance){
         return service.save(maintenance);

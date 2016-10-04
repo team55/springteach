@@ -1,21 +1,18 @@
 group 'NeoLab'
 version '1.0-SNAPSHOT'
 
-var kotlin_version = '1.0.4'
-
-
 
 task wrapper(type: Wrapper) {
-//  gradleVersion = '2.13'
   gradleVersion = '3.1'
   distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
 buildscript {
-//    ext.kotlin_version = '1.0.4'
+    ext.kotlin_version = '1.0.4'
 
     repositories {
 //        mavenCentral()
+        mavenLocal()
         maven{
             url "http://localhost:8081/repository/maven-central"
         }
@@ -27,17 +24,23 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        //SPRING BOOT
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:+") //0.10.770
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'war'
+apply plugin: 'spring-boot'
 
 //sourceCompatibility = 1.8
 
 repositories {
 //    mavenCentral()
 
+    mavenLocal()
     maven{
         url "http://localhost:8081/repository/maven-central"
     }
@@ -46,8 +49,69 @@ repositories {
     }
 }
 
+
+/*
+4.3.3.RELEASE   stable
+5.0.0.SNAPSHOT  snapshot
+5.0.0.M2        last
+ */
+def spring_version = '4.3.3.RELEASE'
+def hibernate_version = '5.2.3.Final'
+
+/*
+содержит зависимость на старую версию spring orm - требуется переопределить
+1.10.4.RELEASE  current
+1.11.0M1        last
+ */
+def spring_data_jpa_version = '1.10.4.RELEASE'
+
 dependencies {
+
+    compileOnly "org.projectlombok:lombok:+" //1.16.10
+
+    compile 'javax.servlet:javax.servlet-api:+' //4.0.0-b01
+
+    //SPRING
+    compile "org.springframework:spring-core:$spring_version"
+    compile "org.springframework:spring-webmvc:$spring_version"
+    compile "org.springframework:spring-orm:$spring_version" //for override spring-data-jpa dependency
+
+    compile "org.springframework.data:spring-data-jpa:$spring_data_jpa_version"
+
+    //SPRING BOOT 1.4.1
+    compile "org.springframework.boot:spring-boot-starter-web"      //для веба
+    compile "org.springframework.boot:spring-boot-starter-data-jpa" //для данных
+    //compile("org.springframework.boot:spring-boot-starter-jdbc")
+
+
+
+
+
+
+    //HIBERNATE
+    compile "org.hibernate:hibernate-core:$hibernate_version"
+
+    //DATABASE
+    compile 'org.postgresql:postgresql:+' //last 9.4.1211
+
+    //Connection pool
+    compile 'org.apache.commons:commons-dbcp2:+' //last 2.4.2
+
+    //JSON
+    compile 'com.fasterxml.jackson.core:jackson-databind:+' //last 2.8.3
+
+    //KOTLIN
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //TEST
     compile 'junit:junit:+'
-//    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+
+
+springBoot {
+    //java class
+    mainClass = 'ru.team55.mes_eds_admin.Main'
+    //mainClass = '_DefaultPackage' //для kotlin
+
 }
