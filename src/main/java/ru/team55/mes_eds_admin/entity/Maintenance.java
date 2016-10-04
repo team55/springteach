@@ -1,9 +1,12 @@
 package ru.team55.mes_eds_admin.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -13,6 +16,8 @@ import java.util.Date;
 )
 @DynamicUpdate //только модифицированые
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Maintenance {
 
     @Id
@@ -24,6 +29,6 @@ public class Maintenance {
     private String name;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private Timestamp created;
 }

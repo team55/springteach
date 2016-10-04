@@ -8,7 +8,8 @@ public interface AdminService {
 
     List<Maintenance> getAll();
     Maintenance getByID(int id);
-    Maintenance save(Maintenance remind);
+    Maintenance save(Maintenance maintenance);
     void remove(int id);
 
+    void create(Maintenance maintenance);
 }
