@@ -78,10 +78,17 @@ dependencies {
 
     compile "org.springframework.data:spring-data-jpa:$spring_data_jpa_version"
 
-    //SPRING BOOT 1.4.1
+    //SPRING BOOT 1.4.1 (стартеры тянут в себе зависимости)
     compile "org.springframework.boot:spring-boot-starter-web"      //для веба
     compile "org.springframework.boot:spring-boot-starter-data-jpa" //для данных
     //compile("org.springframework.boot:spring-boot-starter-jdbc")
+
+    /*Spring Data REST builds on top of Spring Data repositories,
+    analyzes your application’s domain model and exposes hypermedia-driven HTTP
+    resources for aggregates contained in the model.
+    тут есть поиск и другое
+    */
+    compile("org.springframework.boot:spring-boot-starter-data-rest") //автоматический rest поверх репозитария
 
 
 

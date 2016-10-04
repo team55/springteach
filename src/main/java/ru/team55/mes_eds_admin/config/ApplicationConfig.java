@@ -3,6 +3,8 @@ package ru.team55.mes_eds_admin.config;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
+
+//Вариант 1
 //This annotation tells Spring Boot to configure JPA repositories and entities from the current package.
 @EnableAutoConfiguration
 @ComponentScan("ru.team55.mes_eds_admin")
